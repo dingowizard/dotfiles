@@ -1,2 +1,54 @@
 URxvt.font: xft:LiberationMono:pixelsize=14
 
+! Colors:
+! special
+*.foreground:   #f1ebeb
+*.background:   #272822
+*.cursorColor:  #f1ebeb
+
+! black
+*.color0:       #48483e
+*.color8:       #76715e
+
+! red
+*.color1:       #dc2566
+*.color9:       #fa2772
+
+! green
+*.color2:       #8fc029
+*.color10:      #a7e22e
+
+! yellow
+*.color3:       #d4c96e
+*.color11:      #e7db75
+
+! blue
+*.color4:       #55bcce
+*.color12:      #66d9ee
+
+! magenta
+*.color5:       #9358fe
+*.color13:      #ae82ff
+
+! cyan
+*.color6:       #56b7a5
+*.color14:      #66efd5
+
+! white
+*.color7:       #acada1
+*.color15:      #cfd0c2
+
+URxvt.secondaryScreen: 1
+URxvt.secondaryScroll: 0
+URxvt.secondaryWheel: 1
+
+! Disable that ugly scrollbar
+Rxvt.scrollBar:false
+!
+! Blink the cursor 
+Rxvt.cursorBlink:true
+! cursor underline
+URxvt.cursorUnderline:true
+!
+! Alpha channel support (RGBA) for transparent background. See 'man 1 urxvt' for more information
+urxvt*depth: 32
