@@ -8,3 +8,6 @@ if [ -d ~/Dropbox/bin ]; then
 fi
 export PATH
 
+export EDITOR='emacsclient -c'
+export VISUAL='emacsclient -c'
+
