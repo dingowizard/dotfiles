@@ -18,3 +18,5 @@ let &t_SI = "\<esc>[5 q"
 let &t_SR = "\<esc>[5 q"
 let &t_EI = "\<esc>[2 q"
 
+" set right cursor shape on entering vim
+autocmd VimEnter * :normal :startinsert :stopinsert
