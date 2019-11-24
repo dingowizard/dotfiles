@@ -1,4 +1,6 @@
 set ruler
+set cursorline
+hi CursorLine cterm=NONE ctermbg=black
 set hlsearch
 set incsearch
 set lazyredraw
