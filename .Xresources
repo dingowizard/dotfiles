@@ -7,7 +7,7 @@ URxvt.font: xft:LiberationMono:pixelsize=14
 *.cursorColor:  #f1ebeb
 
 ! black
-*.color0:       #48483e
+*.color0:       #000000
 *.color8:       #76715e
 
 ! red
