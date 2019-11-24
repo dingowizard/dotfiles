@@ -45,10 +45,5 @@ URxvt.secondaryWheel: 1
 ! Disable that ugly scrollbar
 Rxvt.scrollBar:false
 !
-! Blink the cursor 
-Rxvt.cursorBlink:true
-! cursor underline
-URxvt.cursorUnderline:true
-!
 ! Alpha channel support (RGBA) for transparent background. See 'man 1 urxvt' for more information
 urxvt*depth: 32

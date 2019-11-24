@@ -13,4 +13,7 @@ set number
 set showcmd
 inoremap fd <Esc>
 
-
+" change cursor shape depending on mode
+let &t_SI = "\<esc>[5 q"
+let &t_SR = "\<esc>[5 q"
+let &t_EI = "\<esc>[2 q"
