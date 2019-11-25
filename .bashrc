@@ -17,6 +17,7 @@ bind '"\eh": "\C-a\eb\ed\C-y\e#man \C-y\C-m\C-p\C-p\C-a\C-d\C-e"'
 alias config='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 
 # aliases
+alias less='vimpager'
 alias diff='colordiff'              # requires colordiff package
 alias grep='grep --color=auto'
 alias more='less'
@@ -35,12 +36,12 @@ alias la='ll -A'
 alias lx='ll -BX'                   # sort by extension
 alias lz='ll -rS'                   # sort by size
 alias lt='ll -rt'                   # sort by date
-alias lm='la | more'
+alias lm='la | less'
 
 ## Safety features
 alias cp='cp -i'
 alias mv='mv -i'
-# safer alternative w/ timeout, not stored in history
+# safer alternative w/ timeout, not stored in history:
 alias rm=' timeout 3 rm -Iv --one-file-system'
 alias ln='ln -i'
 alias chown='chown --preserve-root'
