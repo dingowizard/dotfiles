@@ -53,3 +53,15 @@ alias :q=' exit'
 alias :Q=' exit'
 alias :x=' exit'
 alias cd..='cd ..'
+
+alias trash='trash-put'
+alias del='trash-put'
+
+# auto cd
+shopt -s autocd
+
+# rewrap lines if terminal is resized
+shopt -s checkwinsize
+
+# weather report
+alias weather='weather-report 10065'
