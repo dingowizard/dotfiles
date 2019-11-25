@@ -64,5 +64,11 @@ shopt -s autocd
 # rewrap lines if terminal is resized
 shopt -s checkwinsize
 
+# fix spelling mistakes when changing directories
+shopt -s cdspell
+# and with autocompletion
+shopt -s direxpand
+shopt -s dirspell
+
 # weather report
 alias weather='weather-report 10065'
