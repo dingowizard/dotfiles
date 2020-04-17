@@ -2,6 +2,8 @@
 #[[ -r "/usr/share/z/z.sh" ]] && source /usr/share/z/z.sh
 
 # fasd init:
+# [[ -r "/usr/share/z/z.sh" ]] && source /usr/share/z/z.sh
+# for fasd
 eval "$(fasd --init auto)"
 
 # enable bash-completion package
@@ -20,6 +22,7 @@ bind '"\eh": "\C-a\eb\ed\C-y\e#man \C-y\C-m\C-p\C-p\C-a\C-d\C-e"'
 alias config='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 
 # aliases
+alias e='emacsclient -c'
 alias o='xdg-open'
 alias less='vimpager'
 alias diff='colordiff'              # requires colordiff package
