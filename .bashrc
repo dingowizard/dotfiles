@@ -1,5 +1,8 @@
 # needed to use z command:
-[[ -r "/usr/share/z/z.sh" ]] && source /usr/share/z/z.sh
+#[[ -r "/usr/share/z/z.sh" ]] && source /usr/share/z/z.sh
+
+# fasd init:
+eval "$(fasd --init auto)"
 
 # enable bash-completion package
 source /usr/share/bash-completion/bash_completion
@@ -17,6 +20,7 @@ bind '"\eh": "\C-a\eb\ed\C-y\e#man \C-y\C-m\C-p\C-p\C-a\C-d\C-e"'
 alias config='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 
 # aliases
+alias o='xdg-open'
 alias less='vimpager'
 alias diff='colordiff'              # requires colordiff package
 alias grep='grep --color=auto'
