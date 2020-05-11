@@ -1,4 +1,10 @@
+# fix ugly terminal colors for OTHER_WRITABLE
+eval "$(dircolors ~/.dircolors)"
+
 # needed to use z command:
+#[[ -r "/usr/share/z/z.sh" ]] && source /usr/share/z/z.sh
+
+# fasd init:
 # [[ -r "/usr/share/z/z.sh" ]] && source /usr/share/z/z.sh
 # for fasd
 eval "$(fasd --init auto)"
