@@ -1,7 +1,7 @@
 #!/bin/sh
 
-if [ -d ~/Dropbox/bin ]; then
-	  PATH=~/Dropbox/bin:$PATH
+if [ -d ~/lan/bin ]; then
+	  PATH=~/lan/bin:$PATH
 fi
 export PATH
 

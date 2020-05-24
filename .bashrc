@@ -41,6 +41,9 @@ eval "$(dircolors ~/.dircolors)"
 # for fasd
 eval "$(fasd --init auto)"
 
+# turn off XON/XOFF so you can use Ctrl-S in history search
+stty -ixon
+
 # enable bash-completion package
 source /usr/share/bash-completion/bash_completion
 
