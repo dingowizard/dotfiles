@@ -33,6 +33,13 @@ export PS1="\${PS_FILL}\[\033[0G\]${PS_INFO} ${PS_GIT}${PS_TIME}\n${RESET}\$ "
 # fix ugly terminal colors for OTHER_WRITABLE
 eval "$(dircolors ~/.dircolors)"
 
+######### end of prompt
+
+# fzf stuff:
+
+/usr/share/fzf/key-bindings.bash
+/usr/share/fzf/completion.bash
+
 # needed to use z command:
 #[[ -r "/usr/share/z/z.sh" ]] && source /usr/share/z/z.sh
 
