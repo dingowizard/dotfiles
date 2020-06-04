@@ -37,8 +37,8 @@ eval "$(dircolors ~/.dircolors)"
 
 # fzf stuff:
 
-/usr/share/fzf/key-bindings.bash
-/usr/share/fzf/completion.bash
+source /usr/share/fzf/key-bindings.bash
+source /usr/share/fzf/completion.bash
 
 # needed to use z command:
 #[[ -r "/usr/share/z/z.sh" ]] && source /usr/share/z/z.sh
