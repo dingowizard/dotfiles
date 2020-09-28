@@ -54,3 +54,21 @@
 ;; they are implemented.
 
 (setq evil-escape-key-sequence "fd")
+  (setq company-idle-delay 0)
+  (setq company-minimum-prefix-length 1)
+  (setq company-selection-wrap-around t)
+  (add-hook 'csharp-mode-hook #'flycheck-mode)
+  (add-hook 'csharp-mode-hook #'company-mode)
+  (eval-after-load 'company
+    '(progn
+       (add-to-list 'company-backends 'company-omnisharp)
+       (define-key company-active-map (kbd "TAB") 'company-complete-common-or-cycle)
+       (define-key company-active-map (kbd "<tab>") 'company-complete-common-or-cycle)
+       (define-key company-active-map (kbd "S-TAB") 'company-select-previous)
+       (define-key company-active-map (kbd "<backtab>") 'company-select-previous)))
+  (setq company-frontends
+        '(company-pseudo-tooltip-unless-just-one-frontend
+          company-preview-frontend
+          company-echo-metadata-frontend))
+  (setq omnisharp-company-ignore-case t) ; probably reduntant: this is the default?
+  (setq omnisharp-company-match-type 'company-match-server) ; makes fuzzy matching work
