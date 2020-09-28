@@ -25,7 +25,7 @@
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
-(setq doom-theme 'doom-one)
+(setq doom-theme 'doom-dracula)
 
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
@@ -35,6 +35,27 @@
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
 (setq display-line-numbers-type t)
 
+;; display time in modeline
+(display-time-mode 1)
+
+;; start in fullscreen
+(add-to-list 'default-frame-alist '(fullscreen . maximized))
+
+;; where to place new window when splitting
+(setq evil-vsplit-window-right t)       ; new window will be on right
+(setq evil-split-window-below t)        ; new window will be on bottom
+
+;; allow choice of  buffer to open when splitting
+(defadvice! prompt-for-buffer (&rest _)
+  :after '(evil-window-split evil-window-vsplit)
+  (+ivy/switch-buffer))
+
+;; show preview of buffer in new window while selecting
+(setq +ivy-buffer-preview t)
+
+;;
+(map! :map evil-window-map
+      "SPC" #'rotate-window)
 
 ;; Here are some additional functions/macros that could help you configure Doom:
 ;;
@@ -72,3 +93,25 @@
           company-echo-metadata-frontend))
   (setq omnisharp-company-ignore-case t) ; probably reduntant: this is the default?
   (setq omnisharp-company-match-type 'company-match-server) ; makes fuzzy matching work
+
+(setq evil-escape-key-sequence "fd"
+      projectile-project-search-path '("~/lan/"))
+
+(map! :nv "SPC /" #'comment-line) ; not really necessary since "g c c"
+
+(use-package! auto-dim-other-buffers
+  :config
+  (auto-dim-other-buffers-mode t))
+
+(use-package! mu4e
+  :config
+  (setq mu4e-root-maildir (expand-file-name "~/.mail/gmail")))
+
+(use-package! zoom
+  :hook (doom-first-input . zoom-mode)
+  :config
+  (setq zoom-size '(0.7 . 0.7)
+        zoom-ignored-major-modes '(dired-mode vterm-mode help-mode helpful-mode rxt-help-mode help-mode-menu org-mode)
+        zoom-ignored-buffer-names '("*doom:scratch*" "*info*" "*helpful variable: argv*")
+        zoom-ignored-buffer-name-regexps '("^\\*calc" "\\*helpful variable: .*\\*")
+        zoom-ignore-predicates (list (lambda () (> (count-lines (point-min) (point-max)) 20)))))
