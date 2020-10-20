@@ -25,11 +25,11 @@
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
-(setq doom-theme 'doom-dracula)
+(setq doom-theme 'doom-laserwave)
 
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
-(setq org-directory "~/org/")
+(setq org-directory "~/lan/org/")
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
@@ -50,8 +50,6 @@
   :after '(evil-window-split evil-window-vsplit)
   (+ivy/switch-buffer))
 
-;; show preview of buffer in new window while selecting
-(setq +ivy-buffer-preview t)
 
 ;;
 (map! :map evil-window-map
@@ -80,19 +78,61 @@
 
 (map! :nv "SPC /" #'comment-line) ; not really necessary since "g c c"
 
-(use-package! auto-dim-other-buffers
-  :config
-  (auto-dim-other-buffers-mode t))
-
 (use-package! mu4e
   :config
-  (setq mu4e-root-maildir (expand-file-name "~/.mail/gmail")))
+  (setq mu4e-root-maildir (expand-file-name "~/.mail")))
 
-(use-package! zoom
-  :hook (doom-first-input . zoom-mode)
+; use mu4e for e-mail in emacs
+(setq mail-user-agent 'mu4e-user-agent)
+
+(setq mu4e-drafts-folder "/gmail/[Gmail]/Drafts")
+(setq mu4e-sent-folder   "/gmail/[Gmail]/Sent Mail")
+(setq mu4e-trash-folder  "/gmail/[Gmail]/Trash")
+
+;; don't save message to Sent Messages, Gmail/IMAP takes care of this
+(setq mu4e-sent-messages-behavior 'delete)
+
+;; (See the documentation for `mu4e-sent-messages-behavior' if you have
+;; additional non-Gmail addresses and want assign them different
+;; behavior.)
+
+;; setup some handy shortcuts
+;; you can quickly switch to your Inbox -- press ``ji''
+;; then, when you want archive some messages, move them to
+;; the 'All Mail' folder by pressing ``ma''.
+
+(setq mu4e-maildir-shortcuts
+    '( (:maildir "/gmail/Inbox"              :key ?i)
+       (:maildir "/gmail/[Gmail]/Sent Mail"  :key ?s)
+       (:maildir "/gmail/[Gmail]/Trash"      :key ?t)
+       (:maildir "/gmail/[Gmail]/All Mail"   :key ?a)))
+
+
+(after! mu4e
+  ;; (when (executable-find "w3m")
+  ;;   (setq mu4e-view-prefer-html t
+  ;;         mu4e-html2text-command "w3m -dump -T text/html"))
+  (setq mu4e-view-show-images t)
+  ;; (when (fboundp 'imagemagick-register-types)
+  ;;   (imagemagick-register-types))
+  (setq sendmail-program "/usr/bin/msmtp"
+        send-mail-function #'smtpmail-send-it
+        message-sendmail-f-is-evil t
+        message-sendmail-extra-arguments '("--read-envelope-from") ; , "--read-recipients")
+        message-send-mail-function #'message-send-mail-with-sendmail))
+
+(after! ivy
+  ;; use fuzzy completion for ivy searches
+  (setq ivy-re-builders-alist
+        '((t . ivy--regex-fuzzy)))
+  ;; show preview of buffer in new window while selecting
+  (setq +ivy-buffer-preview t))
+
+;; disable snipe so 's' works as in vim
+(after! evil-snipe
+  (evil-snipe-mode -1))
+
+(after! org
   :config
-  (setq zoom-size '(0.7 . 0.7)
-        zoom-ignored-major-modes '(dired-mode vterm-mode help-mode helpful-mode rxt-help-mode help-mode-menu org-mode)
-        zoom-ignored-buffer-names '("*doom:scratch*" "*info*" "*helpful variable: argv*")
-        zoom-ignored-buffer-name-regexps '("^\\*calc" "\\*helpful variable: .*\\*")
-        zoom-ignore-predicates (list (lambda () (> (count-lines (point-min) (point-max)) 20)))))
+  (setq org-agenda-files '("~/lan/todo.org")))
+
