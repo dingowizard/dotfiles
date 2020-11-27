@@ -97,6 +97,21 @@
 
 (map! :nv "SPC /" #'comment-line) ; not really necessary since "g c c"
 
+(after! ivy
+  ;; use fuzzy completion for ivy searches
+  (setq ivy-re-builders-alist
+        '((t . ivy--regex-fuzzy)))
+  ;; show preview of buffer in new window while selecting
+  (setq +ivy-buffer-preview t))
+
+;; disable snipe so 's' works as in vim
+(after! evil-snipe
+  (evil-snipe-mode -1))
+
+(after! org
+  :config
+  (setq org-agenda-files '("~/lan/todo.org")))
+
 (use-package! mu4e
   :config
   (setq mu4e-root-maildir (expand-file-name "~/.mail")))
@@ -139,19 +154,4 @@
         message-sendmail-f-is-evil t
         message-sendmail-extra-arguments '("--read-envelope-from") ; , "--read-recipients")
         message-send-mail-function #'message-send-mail-with-sendmail))
-
-(after! ivy
-  ;; use fuzzy completion for ivy searches
-  (setq ivy-re-builders-alist
-        '((t . ivy--regex-fuzzy)))
-  ;; show preview of buffer in new window while selecting
-  (setq +ivy-buffer-preview t))
-
-;; disable snipe so 's' works as in vim
-(after! evil-snipe
-  (evil-snipe-mode -1))
-
-(after! org
-  :config
-  (setq org-agenda-files '("~/lan/todo.org")))
 
