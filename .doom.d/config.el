@@ -110,7 +110,7 @@
 
 (after! org
   :config
-  (setq org-agenda-files '("~/lan/todo.org")))
+  (setq org-agenda-files '("~/org")))
 
 (use-package! mu4e
   :config
