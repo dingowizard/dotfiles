@@ -110,7 +110,9 @@
 
 (after! org
   :config
-  (setq org-agenda-files '("~/org")))
+  (setq org-agenda-files '("~/org"))
+  (setq org-log-into-drawer t))
+
 
 (use-package! mu4e
   :config
