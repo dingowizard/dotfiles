@@ -111,7 +111,10 @@
 (after! org
   :config
   (setq org-agenda-files '("~/org"))
-  (setq org-log-into-drawer t))
+  (setq org-log-into-drawer t)
+  (setq org-capture-templates
+        '(("t" "Todo" entry (file+headline "~/org/todo.org" "Tasks")
+           "* TODO %?\n %i\n %a"))))
 
 
 (use-package! mu4e
