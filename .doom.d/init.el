@@ -17,6 +17,7 @@
 ;; Use emacs key-bindings when in insert mode.
 ;; This needs to be done before evil is started
 (setq evil-disable-insert-state-bindings t)
+(setq doom-localleader-key ",")
 
 (doom! :input
        ;;chinese
