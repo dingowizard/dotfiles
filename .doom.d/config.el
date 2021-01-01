@@ -114,7 +114,8 @@
   (setq org-log-into-drawer t)
   (setq org-capture-templates
         '(("t" "Todo" entry (file+headline "~/org/todo.org" "Tasks")
-           "* TODO %?\n %i\n %a"))))
+           "* TODO %?\n %i\n %a")))
+  (setq org-log-reschedule 'time))
 
 
 (use-package! mu4e
