@@ -27,6 +27,7 @@
 ;; `load-theme' function. This is the default:
 (setq doom-theme 'doom-laserwave)
 
+
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
 (setq org-directory "~/org/")
@@ -55,6 +56,18 @@
 (map! :map evil-window-map
       "SPC" #'rotate-window)
 
+(after! csharp-mode
+  (map! (:localleader
+         :map csharp-mode-map
+         :desc "Errors" "m" #'omnisharp-solution-errors
+         (:prefix ("s" . "sessions")
+          :desc "Start server" "s" #'omnisharp-start-omnisharp-server
+          :desc "Stop server" "t" #'omnisharp-stop-server
+          :desc "Reload solution" "n" #'omnisharp-reload-solution)
+         (:prefix ("r" . "refactorings")
+          :desc "List refactorings" "l" #'omnisharp-run-code-action-refactoring
+          :desc "Rename" "r"))))
+
 ;; Here are some additional functions/macros that could help you configure Doom:
 ;;
 ;; - `load!' for loading external *.el files relative to this one
@@ -77,20 +90,36 @@
   (setq company-minimum-prefix-length 1)
   (setq company-selection-wrap-around t)
   (add-hook 'csharp-mode-hook #'flycheck-mode)
-  (add-hook 'csharp-mode-hook #'company-mode)
-  (eval-after-load 'company
-    '(progn
-       (add-to-list 'company-backends 'company-omnisharp)
-       (define-key company-active-map (kbd "TAB") 'company-complete-common-or-cycle)
-       (define-key company-active-map (kbd "<tab>") 'company-complete-common-or-cycle)
-       (define-key company-active-map (kbd "S-TAB") 'company-select-previous)
-       (define-key company-active-map (kbd "<backtab>") 'company-select-previous)))
+(add-hook 'csharp-mode-hook #'company-mode)
+(add-hook 'csharp-mode-hook (lambda ()
+                              (setq c-basic-offset 4)
+                              (c-set-offset 'substatement-open 0)))
+(eval-after-load 'company
+  '(progn
+     (add-to-list 'company-backends 'company-omnisharp)
+     (define-key company-active-map (kbd "TAB") 'company-complete-common-or-cycle)
+     (define-key company-active-map (kbd "<tab>") 'company-complete-common-or-cycle)
+     (define-key company-active-map (kbd "S-TAB") 'company-select-previous)
+     (define-key company-active-map (kbd "<backtab>") 'company-select-previous)))
   (setq company-frontends
         '(company-pseudo-tooltip-unless-just-one-frontend
           company-preview-frontend
           company-echo-metadata-frontend))
-  (setq omnisharp-company-ignore-case t) ; probably reduntant: this is the default?
+
+;; NOTES ON CSHARP CONFIG
+;; to clear errors like 'The reference assemblies for 'The reference assemblies for framework ".NETFramework,Version=v3.5" were not found.'
+;; and get intellisense working, I had to edit the 'run' script in the executable path to
+;; mono_cmd = /usr/bin/mono
+;; it was no longer necessary to set the executable path to run an old version of omnisharp
+;; (setq omnisharp-server-executable-path "~/.emacs.d/.local/etc/omnisharp/server/v1.34.15/run")
+(setq omnisharp-company-ignore-case t) ; probably reduntant: this is the default?
   (setq omnisharp-company-match-type 'company-match-server) ; makes fuzzy matching work
+
+; Set indentation level to 4 spaces (instead of 2)
+(setq c-basic-offset 4)
+; Set the extra indentation before a substatement (e.g. the opening brace in
+; the consequent block of an if statement) to 0 (instead of '+)
+(c-set-offset 'substatement-open 0)
 
 (setq evil-escape-key-sequence "fd"
       projectile-project-search-path '("~/lan/"))
@@ -118,46 +147,46 @@
   (setq org-log-reschedule 'time))
 
 
-(use-package! mu4e
-  :config
-  (setq mu4e-root-maildir (expand-file-name "~/.mail")))
+;; (use-package! mu4e
+;;   :config
+;;   (setq mu4e-root-maildir (expand-file-name "~/.mail")))
 
-; use mu4e for e-mail in emacs
-(setq mail-user-agent 'mu4e-user-agent)
+;; ; use mu4e for e-mail in emacs
+;; (setq mail-user-agent 'mu4e-user-agent)
 
-(setq mu4e-drafts-folder "/gmail/[Gmail]/Drafts")
-(setq mu4e-sent-folder   "/gmail/[Gmail]/Sent Mail")
-(setq mu4e-trash-folder  "/gmail/[Gmail]/Trash")
+;; (setq mu4e-drafts-folder "/gmail/[Gmail]/Drafts")
+;; (setq mu4e-sent-folder   "/gmail/[Gmail]/Sent Mail")
+;; (setq mu4e-trash-folder  "/gmail/[Gmail]/Trash")
 
-;; don't save message to Sent Messages, Gmail/IMAP takes care of this
-(setq mu4e-sent-messages-behavior 'delete)
+;; ;; don't save message to Sent Messages, Gmail/IMAP takes care of this
+;; (setq mu4e-sent-messages-behavior 'delete)
 
-;; (See the documentation for `mu4e-sent-messages-behavior' if you have
-;; additional non-Gmail addresses and want assign them different
-;; behavior.)
+;; ;; (See the documentation for `mu4e-sent-messages-behavior' if you have
+;; ;; additional non-Gmail addresses and want assign them different
+;; ;; behavior.)
 
-;; setup some handy shortcuts
-;; you can quickly switch to your Inbox -- press ``ji''
-;; then, when you want archive some messages, move them to
-;; the 'All Mail' folder by pressing ``ma''.
+;; ;; setup some handy shortcuts
+;; ;; you can quickly switch to your Inbox -- press ``ji''
+;; ;; then, when you want archive some messages, move them to
+;; ;; the 'All Mail' folder by pressing ``ma''.
 
-(setq mu4e-maildir-shortcuts
-    '( (:maildir "/gmail/Inbox"              :key ?i)
-       (:maildir "/gmail/[Gmail]/Sent Mail"  :key ?s)
-       (:maildir "/gmail/[Gmail]/Trash"      :key ?t)
-       (:maildir "/gmail/[Gmail]/All Mail"   :key ?a)))
+;; (setq mu4e-maildir-shortcuts
+;;     '( (:maildir "/gmail/Inbox"              :key ?i)
+;;        (:maildir "/gmail/[Gmail]/Sent Mail"  :key ?s)
+;;        (:maildir "/gmail/[Gmail]/Trash"      :key ?t)
+;;        (:maildir "/gmail/[Gmail]/All Mail"   :key ?a)))
 
 
-(after! mu4e
-  ;; (when (executable-find "w3m")
-  ;;   (setq mu4e-view-prefer-html t
-  ;;         mu4e-html2text-command "w3m -dump -T text/html"))
-  (setq mu4e-view-show-images t)
-  ;; (when (fboundp 'imagemagick-register-types)
-  ;;   (imagemagick-register-types))
-  (setq sendmail-program "/usr/bin/msmtp"
-        send-mail-function #'smtpmail-send-it
-        message-sendmail-f-is-evil t
-        message-sendmail-extra-arguments '("--read-envelope-from") ; , "--read-recipients")
-        message-send-mail-function #'message-send-mail-with-sendmail))
+;; (after! mu4e
+;;   ;; (when (executable-find "w3m")
+;;   ;;   (setq mu4e-view-prefer-html t
+;;   ;;         mu4e-html2text-command "w3m -dump -T text/html"))
+;;   (setq mu4e-view-show-images t)
+;;   ;; (when (fboundp 'imagemagick-register-types)
+;;   ;;   (imagemagick-register-types))
+;;   (setq sendmail-program "/usr/bin/msmtp"
+;;         send-mail-function #'smtpmail-send-it
+;;         message-sendmail-f-is-evil t
+;;         message-sendmail-extra-arguments '("--read-envelope-from") ; , "--read-recipients")
+;;         message-send-mail-function #'message-send-mail-with-sendmail))
 
