@@ -123,3 +123,7 @@ shopt -s dirspell
 
 # weather report
 alias weather='weather-report 10065'
+
+#scheme libraries
+export CHEZSCHEMELIBDIRS="/home/dave/chez-lib:"
+export CHEZSCHEMELIBEXTS=".sc::.so:"
