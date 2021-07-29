@@ -122,7 +122,7 @@
 (c-set-offset 'substatement-open 0)
 
 (setq evil-escape-key-sequence "fd"
-      projectile-project-search-path '("~/lan/"))
+      projectile-project-search-path '("~/lan/projects"))
 
 (map! :nv "SPC /" #'comment-line) ; not really necessary since "g c c"
 
