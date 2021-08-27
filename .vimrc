@@ -1,3 +1,5 @@
+" no compatibility mode
+set nocp
 set ruler
 set cursorline
 hi CursorLine cterm=NONE ctermbg=black
