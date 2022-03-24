@@ -3,8 +3,8 @@
 if [ -d ~/lan/bin ]; then
 	  PATH=~/lan/bin:$PATH
 fi
-if [ -d ~/.emacs.d/bin ]; then
-	PATH=~/.emacs.d/bin:$PATH
+if [ -d ~/.emacs.doom/bin ]; then
+	PATH=~/.emacs.doom/bin:$PATH
 fi
 export PATH
 
