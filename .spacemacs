@@ -51,7 +51,7 @@ values."
      git
      c-c++
      ;; markdown
-     csharp
+     (csharp :variables csharp-backend 'lsp)
      common-lisp
      racket
      clojure
