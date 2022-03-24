@@ -56,18 +56,6 @@
 (map! :map evil-window-map
       "SPC" #'rotate-window)
 
-(after! csharp-mode
-  (map! (:localleader
-         :map csharp-mode-map
-         :desc "Errors" "m" #'omnisharp-solution-errors
-         (:prefix ("s" . "sessions")
-          :desc "Start server" "s" #'omnisharp-start-omnisharp-server
-          :desc "Stop server" "t" #'omnisharp-stop-server
-          :desc "Reload solution" "n" #'omnisharp-reload-solution)
-         (:prefix ("r" . "refactorings")
-          :desc "List refactorings" "l" #'omnisharp-run-code-action-refactoring
-          :desc "Rename" "r"))))
-
 ;; Here are some additional functions/macros that could help you configure Doom:
 ;;
 ;; - `load!' for loading external *.el files relative to this one
@@ -86,14 +74,9 @@
 ;; they are implemented.
 
 (setq evil-escape-key-sequence "fd")
-  (setq company-idle-delay 0)
-  (setq company-minimum-prefix-length 1)
-  (setq company-selection-wrap-around t)
-  (add-hook 'csharp-mode-hook #'flycheck-mode)
-(add-hook 'csharp-mode-hook #'company-mode)
-(add-hook 'csharp-mode-hook (lambda ()
-                              (setq c-basic-offset 4)
-                              (c-set-offset 'substatement-open 0)))
+(setq company-idle-delay 0)
+(setq company-minimum-prefix-length 1)
+(setq company-selection-wrap-around t)
 (eval-after-load 'company
   '(progn
      (add-to-list 'company-backends 'company-omnisharp)
@@ -101,19 +84,13 @@
      (define-key company-active-map (kbd "<tab>") 'company-complete-common-or-cycle)
      (define-key company-active-map (kbd "S-TAB") 'company-select-previous)
      (define-key company-active-map (kbd "<backtab>") 'company-select-previous)))
-  (setq company-frontends
-        '(company-pseudo-tooltip-unless-just-one-frontend
-          company-preview-frontend
-          company-echo-metadata-frontend))
+(setq company-frontends
+      '(company-pseudo-tooltip-unless-just-one-frontend
+        company-preview-frontend
+        company-echo-metadata-frontend))
 
-;; NOTES ON CSHARP CONFIG
-;; to clear errors like 'The reference assemblies for 'The reference assemblies for framework ".NETFramework,Version=v3.5" were not found.'
-;; and get intellisense working, I had to edit the 'run' script in the executable path to
-;; mono_cmd = /usr/bin/mono
-;; it was no longer necessary to set the executable path to run an old version of omnisharp
-;; (setq omnisharp-server-executable-path "~/.emacs.d/.local/etc/omnisharp/server/v1.34.15/run")
 (setq omnisharp-company-ignore-case t) ; probably reduntant: this is the default?
-  (setq omnisharp-company-match-type 'company-match-server) ; makes fuzzy matching work
+(setq omnisharp-company-match-type 'company-match-server) ; makes fuzzy matching work
 
 ; Set indentation level to 4 spaces (instead of 2)
 (setq c-basic-offset 4)
@@ -122,7 +99,7 @@
 (c-set-offset 'substatement-open 0)
 
 (setq evil-escape-key-sequence "fd"
-      projectile-project-search-path '("~/lan/"))
+      projectile-project-search-path '("~/lan/projects"))
 
 (map! :nv "SPC /" #'comment-line) ; not really necessary since "g c c"
 
@@ -190,3 +167,7 @@
 ;;         message-sendmail-extra-arguments '("--read-envelope-from") ; , "--read-recipients")
 ;;         message-send-mail-function #'message-send-mail-with-sendmail))
 
+(use-package! samsara
+  :load-path "~/lan/projects/LiveCodeWorld/emacs")
+
+(load! "lang/csharp")

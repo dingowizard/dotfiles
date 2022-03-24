@@ -112,6 +112,9 @@ alias del='trash-put'
 # auto cd
 shopt -s autocd
 
+# recursive wildcard
+shopt -s globstar
+
 # rewrap lines if terminal is resized
 shopt -s checkwinsize
 
@@ -127,3 +130,8 @@ alias weather='weather-report 10065'
 #scheme libraries
 export CHEZSCHEMELIBDIRS="/home/dave/chez-lib:"
 export CHEZSCHEMELIBEXTS=".sc::.so:"
+
+
+# BEGIN_KITTY_SHELL_INTEGRATION
+if test -n "$KITTY_INSTALLATION_DIR" -a -e "$KITTY_INSTALLATION_DIR/shell-integration/bash/kitty.bash"; then source "$KITTY_INSTALLATION_DIR/shell-integration/bash/kitty.bash"; fi
+# END_KITTY_SHELL_INTEGRATION
